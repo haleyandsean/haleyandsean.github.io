@@ -208,36 +208,236 @@ $(document).ready(function () {
 
 
     /********************** RSVP **********************/
-    $('#rsvp-form').on('submit', function (e) {
+    $('#rsvp-form-name').on('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+
+        $('#alert-wrapper-name').html(alert_markup('info', '<strong>Just a sec!</strong> Looking up your details.'));
+
+        $('#rsvp-fetch').modal('show');
+
+    });
+
+    $("#rsvp-fetch").on('shown.bs.modal', function () {
+        var sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS8liDt1TSFf_apNdPtoDdzYlwYy2NyibnmLLjacWmyBsBoRh7hfQMLhPHe_uP74HmqhfVptGtdAAuc/pub?gid=924980658&single=true&output=csv';
+
+        // Validate form input
+        var name = $('#name').val();
+
+        fetch(sheetUrl)
+            .then((response) => response.text())
+            .then((data) => createForm(data, name));
+    });
+
+    $('#rsvp-fetch').on('hidden.bs.modal', function () {
+        reInitializeForm();
+    });
+
+    $("#checkbox-rsvp").on('submit', function(e) {
         e.preventDefault();
+
         var data = $(this).serialize();
+        console.log(data);
+
+        // Convert form data to an object
+        var formObject = {};
+
+        formObject["num_guests"] = $('#num_guests').val();
+        $(this).serializeArray().forEach(function(item) {
+            formObject[item.name] = item.value;
+        });
+        console.log(formObject);
+
+        // Find unchecked checkboxes and add them to the object with value 'false'
+        $(this).find('input[type="checkbox"]').each(function() {
+            if (!$(this).is(':checked')) {
+            formObject[$(this).attr('name')] = 'false';
+            } else {
+            formObject[$(this).attr('name')] = 'true';
+            }
+         });
 
         $('#alert-wrapper').html(alert_markup('info', '<strong>Just a sec!</strong> We are saving your details.'));
+        $("#rsvp-fetch").modal('hide');       
+        $('#rsvp-modal').modal('show');
+        $.post('https://script.google.com/macros/s/AKfycbwjam6jhAxoW0kWo2ya4tjh6KDGEhTFyvbr534k_44CC4ESQVLwnFXvScgNH821Er2-/exec', formObject)
+        .done(function (data) {
+            console.log(data);
+            if (data.result === "error") {
+                $('#alert-wrapper').html(alert_markup('danger', data.message));
+            } else {
+                $('#alert-wrapper').html('');
+                $('#rsvp-modal').modal('show');
+            }
+        })
+        .fail(function (data) {
+            console.log(data);
+            $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> There is some issue with the server. '));
+        });
 
-        if (MD5($('#invite_code').val()) !== 'b0e53b10c1f55ede516b240036b88f40'
-            && MD5($('#invite_code').val()) !== '2ac7f43695eb0479d5846bb38eec59cc') {
-            $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
-        } else {
-            $.post('https://script.google.com/macros/s/AKfycbyo0rEknln8LedEP3bkONsfOh776IR5lFidLhJFQ6jdvRiH4dKvHZmtoIybvnxpxYr2cA/exec', data)
-                .done(function (data) {
-                    console.log(data);
-                    if (data.result === "error") {
-                        $('#alert-wrapper').html(alert_markup('danger', data.message));
-                    } else {
-                        $('#alert-wrapper').html('');
-                        $('#rsvp-modal').modal('show');
-                    }
-                })
-                .fail(function (data) {
-                    console.log(data);
-                    $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> There is some issue with the server. '));
-                });
-        }
     });
 
 });
 
 /********************** Extras **********************/
+
+function displayCSVData(csv, name) {
+    const rows = csv.split('\n');
+    const tableHead = document.getElementById('tableHead');
+    const tableBody = document.getElementById('tableBody');
+
+    tableHead.innerHTML = '';
+    tableBody.innerHTML = '';
+
+    rows.forEach((row, index) => {
+        const cols = row.split(',');
+        if ((cols[0] == name) && (index != 0)){
+            const tr = document.createElement('tr');
+
+            cols.forEach(col => {
+                const cell = document.createElement(index === 0 ? 'th' : 'td');
+                cell.textContent = col.trim();
+                tr.appendChild(cell);
+            });
+
+            if (index === 0) {
+                tableHead.appendChild(tr);
+            } else {
+                tableBody.appendChild(tr);
+            }
+        }
+    });
+}
+
+function getNumInvites(csv, name) {
+    const rows = csv.split('\n');
+   
+    var numInvites = 0;
+    rows.forEach((row, index) => {
+        const cols = row.split(',');
+        if ((cols[0] == name) && (index != 0)){
+            numInvites = cols[1];
+        }
+    });
+
+    return numInvites;
+}
+
+ // Function to create and return a row with textbox and checkboxes
+function createRow(index, name) {
+    const row = document.createElement("tr");
+    
+    // Textbox in the first column
+    const textboxCell = document.createElement("td");
+    const tb_wrap = document.createElement("div");
+    tb_wrap.className = "col-md-12 col-sm-12";
+    const in_group = document.createElement("div");
+    in_group.className = "form-input-group";
+
+    const textbox = document.createElement("input");
+    textbox.name = `guest_name_${index}`;
+    textbox.className = "small-input";
+    textbox.value = "";
+    in_group.appendChild(textbox);
+    tb_wrap.appendChild(in_group);
+    textboxCell.appendChild(tb_wrap);
+    row.appendChild(textboxCell);
+
+    if (index === 0) {
+        // Pre-fill the first textbox in the first row
+        textbox.value = name;
+    }
+    
+    // Checkboxes in the second and third columns
+    const cb_pair = document.createElement("checkbox-pair");
+    const checkbox1Cell = document.createElement("td");
+    const checkbox1 = document.createElement("input");
+    checkbox1.type = "checkbox";
+    checkbox1.name = `attending_${index}`;
+    checkbox1.className = "form-check-input";
+    checkbox1Cell.appendChild(checkbox1);
+    row.appendChild(checkbox1Cell);
+
+    const checkbox2Cell = document.createElement("td");
+    const checkbox2 = document.createElement("input");
+    checkbox2.type = "checkbox";
+    checkbox2.name = `declines_${index}`;
+    checkbox2.className = "form-check-input";
+    checkbox2Cell.appendChild(checkbox2);
+    row.appendChild(checkbox2Cell);
+
+    // Add event listener to each pair
+    checkbox1.addEventListener('change', function() {
+      if (checkbox1.checked) {
+        checkbox2.disabled = true;
+      } else {
+        checkbox2.disabled = false;
+      }
+    });
+
+    checkbox2.addEventListener('change', function() {
+      if (checkbox2.checked) {
+        checkbox1.disabled = true;
+      } else {
+        checkbox1.disabled = false;
+      }
+    });
+
+    return row;
+}
+
+// Function to add a new row to the form
+function addRow(name) {
+    const formBody = document.getElementById("rsvpBody");
+
+    const index = formBody.children.length; // Index of the new row
+    const row = createRow(index, name); // Create the new row
+    formBody.appendChild(row); // Add the new row to the form
+}
+
+// Function to create checkboxes dynamically
+function createForm(csv, name) {
+    var numInvites = getNumInvites(csv, name);
+    document.getElementById('num_guests').textContent = `${numInvites}`;
+    document.getElementById('num_guests').value = numInvites;
+
+    for (let i = 0; i < numInvites; i++) {
+        addRow(name);
+    }
+}
+
+function reInitializeForm(){
+    var form = document.getElementById('checkbox-rsvp');
+    var formBody = document.getElementById('rsvpBody');
+    formBody.innerHTML = "";
+    form.reset();
+}
+
+
+// Function to create checkboxes dynamically
+function createChecklist(csv, name) {
+    var numInvites = getNumInvites(csv, name);
+    var checkboxList = document.getElementById('checkboxList');
+
+    for (let i = 0; i < numInvites; i++) {
+        const listItem = document.createElement('li');
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `item${i}`;
+        checkbox.name = `item${i}`;
+        checkbox.value = `Item ${i + 1}`;
+        
+        const label = document.createElement('label');
+        label.htmlFor = `item${i}`;
+        label.appendChild(document.createTextNode(`Item ${i + 1}`));
+
+        listItem.appendChild(checkbox);
+        listItem.appendChild(label);
+        checkboxList.appendChild(listItem);
+    
+    }
+}
+
 
 // Google map
 function initMap() {

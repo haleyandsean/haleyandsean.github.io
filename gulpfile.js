@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+const babel = require('gulp-babel');
 var sass = require('gulp-sass')(require('sass'));
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
@@ -21,6 +22,9 @@ gulp.task('sass:watch', function () {
 // minify js
 gulp.task('minify-js', function () {
     return gulp.src('./js/scripts.js')
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
         .pipe(uglify())
         .pipe(rename({basename: 'scripts.min'}))
         .pipe(gulp.dest('./js'));

@@ -12,7 +12,7 @@
 	text-transform: uppercase;
 }
 .btn:hover, .btn:focus {
-	color: $white-color;
+	color: $accent-color-hover;
 	border-color: $accent-color;
 	background-color: $accent-color;
 }
@@ -30,25 +30,26 @@
 	border-color: $accent-color;
 }
 .btn-fill {
-	color: $white-color;
+	color: $accent-color;
 	border: solid 2px $accent-color;
 	-moz-border-radius: 40px;
 	-webkit-border-radius: 40px;
 	border-radius: 40px;
 	display: inline-block;
 	text-transform: uppercase;
-	background-color: $accent-color;
+	background-color: $btn-background;
 }
 .btn-fill:hover, .btn-fill:focus {
-	color: $white-color;
-	background-color: $accent-color-hover;
-	border-color: $accent-color-hover;
+	color: $accent-color-hover;
+	border-color: $accent-color;
+	background-color: $accent-color;
 }
 .btn-small {
 	padding: 8px 30px;
 }
 .btn-large {
 	padding: 15px 40px;
+    background-color: $btn-background;
 }
 .btn-margin-right {
 	margin-right: 20px;
