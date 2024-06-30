@@ -28,6 +28,8 @@ Global Styles
 .no-margin {
   margin: 0;
 }
+
+
 a {
   color: $accent-color;
   -webkit-transition-timing-function: ease;
@@ -252,6 +254,10 @@ Navigation
   transition: all 300ms ease-in-out;
 }
 
+.map{
+  margin: 110px 0 0 0;
+}
+
 /* ==========================================================================
 Hero
 ========================================================================== */
@@ -263,12 +269,13 @@ Hero
   -o-background-size: cover;
   background-size: cover;
   position: relative;
+  background-position: center;
 
-  /*.rsvp-btn {
-    position: absolute;
+  .rsvp-btn {
+    position: relative;
     bottom: 100px;
-    left: 50%;
-  }*/
+    //left: 50%;
+  }
   .down-arrow a {
     color: $txt-light;
   }
@@ -286,9 +293,9 @@ Hero
     padding-top: 40%;
   }
   .hero-content img {
-    width: 35%;
-    margin-top: 7%;
-    margin-bottom: 5%;
+    width: 400px;
+    margin-top: 30px;
+    margin-bottom: 200px;
   }
 }
 .navigation {
@@ -306,7 +313,7 @@ Hero
   width: 100%;
 }
 header {
-  padding: 40px 0;
+  padding: 35px 0;
   position: relative;
   width: 1170px;
   margin: 0 auto;
@@ -366,7 +373,7 @@ header {
   .member-actions {
     position: absolute;
     right: 0;
-    top: 41px;
+    top: 36px;
     transition: all 300ms ease-in-out;
   }
 }

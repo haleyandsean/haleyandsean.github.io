@@ -1,0 +1,178 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Haley & Sean are getting maaaaaarried!</title>
+    <meta name="description" content="We would like to invite you to our big day.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="Haley & Sean are getting maaaaaarried!">
+    <meta property="og:description" content="We would like to invite you to our big day.">
+    <meta property="og:image" content="img/hero-min.jpg">
+    <meta property="og:type" content="website">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logo-sq.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logo-sq.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo-sq.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+
+    <script>
+        // load css files from CDN if local node_modules fail
+        function loadCssFromCDN(css) {
+            // create new link tag
+            const link = document.createElement('link');
+            if (css === 'animate.css') {
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css';
+            } else if (css === 'font-awesome.css') {
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+            }
+            link.rel = 'stylesheet';
+
+            // add link tag to head section
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+
+        // load js files from CDN if local node_modules fail
+        function loadJsFromCDN(js) {
+            if (js === 'waypoints.js') {
+                document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"><\/script>');
+            } else if (js === 'jquery.js') {
+                document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"><\/script>');
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.css">
+    <link rel="stylesheet" href="css/flexslider.css">
+    <link rel="stylesheet" href="css/styles.min.css">
+    <link rel="stylesheet" href="css/queries.css">
+    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css" onerror="loadCssFromCDN('animate.css')">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" onerror="loadCssFromCDN('font-awesome.css')">
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<body id="top">
+
+
+<section class="navigation">
+    <header>
+        <div class="header-content">
+            <div class="logo"><a href="content.html"><img src="img/logo.png" alt="Logo"></a></div>
+            <div class="header-nav">
+                <nav>
+                    <ul class="primary-nav">
+                        <li><a href="content.html#intro">How we met</a></li>
+                        <li><a href="content.html#events">Events</a></li>
+                        <!--<li><a href="#instagram">Instagram</a></li>-->
+                        <li><a href="content.html#eng-pics">Engagement</a></li>
+                        <li class="hidden-sm hidden-xs"><a href="attractions.html"> Local Attractions </a></li>
+                    </ul>
+                    <ul class="member-actions">
+                        <li><a href="content.html#map" class="login">Venue</a></li>
+                        <li><a href="content.html#rsvp" class="btn-white btn-small">RSVP</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="navicon">
+                <a class="nav-toggle" href="#"><span></span></a>
+            </div>
+        </div>
+    </header>
+</section>
+
+<section class="map">
+    <iframe title="State Map" id="iframe" src="https://www.nps.gov/maps/embed.html?mapId=8aa33314-ada3-4191-8639-bea750dcf59f&stateCode=CA" height="426" width="100%"></iframe>
+</section>
+
+<section id="attraction-intro" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3>Local attractions</h3>
+                <p> 
+                    We're not just talking about the sparks between Sean and Haley 😉. 
+                    California has a lot of things to do! We highly recommend taking some extra time before or after
+                    the wedding to explore. We've put together some ideas/recommendations below. Feel free to reach out to us 
+                    at <a href="mailto:parmeseanmac@gmail.com">parmeseanmac@gmail.com</a> (or via any other channel)
+                    if you have any questions or if you want to discuss options for your trip.
+                </p>
+                <p> 
+                If you only have an extra day (or part of a day), we suggest taking advantage of the Paso Robles 
+                <a href="#wine">wine region</a> or taking some time to explore the nearby 
+                <a href="#coast">California coastline</a>. Extended trips can visit one of California's 
+                nine <a href="#parks">national parks</a> or head to one of California's <a href="#cities">major cities</a> 
+                for a taste of west coast culture. 
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section id="wine" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3> Wine</h3>
+                <p>
+                Paso Robles is one of the bright stars of California's wine regions. Though not quite as famous as 
+                Napa Valley or Sonoma, local wine experts<sup><a href="#footnote1" id="ref1">*</a></sup> rank it much 
+                higher in terms of quality and affordability. There are several places that we really like. 
+                </p>
+            </div>
+        </div>
+    </div>
+
+  <div class="footnotes text-center">
+    <ol>
+      <li id="footnote1"><a href="#ref1">*</a> Haley MacLeod</li>
+    </ol>
+  </div>
+</section>
+
+<section id="parks" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3> National Parks</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="coast" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3> "Coastal Elites"</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="cities" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3> Cities </h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>
