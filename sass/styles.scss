@@ -31,7 +31,7 @@ Global Styles
 
 
 a {
-  color: $accent-color;
+  color: $white-color;
   -webkit-transition-timing-function: ease;
   transition-timing-function: ease;
   -webkit-transition-duration: 200ms;
@@ -261,6 +261,23 @@ Navigation
 /* ==========================================================================
 Hero
 ========================================================================== */
+.fancy-text {
+    font-family: $sans-serif;
+    font-size: 10vh;
+    color: $white-color;
+    text-transform: uppercase;
+    padding: 0.5vh 2vh 0.5vh 2vh;
+}
+
+.splash {
+    margin: -20% 0 20% -10%;
+    display: inline-block;
+    text-transform: uppercase;
+    background-color: $txt-secondary;//rgba(255,255,255,0.8);
+    border: 3px solid $white-color;
+    opacity: 0.8;
+}
+
 .hero {
   min-height: 750px;
   background: url('../img/hero-min.jpg') center center;
@@ -290,7 +307,7 @@ Hero
     margin-bottom: 80px;
   }
   .hero-content {
-    padding-top: 40%;
+    padding-top: 50%;
   }
   .hero-content img {
     width: 400px;
