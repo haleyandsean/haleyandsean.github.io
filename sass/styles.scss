@@ -304,9 +304,14 @@ Hero
     background-size: cover;
     position: absolute;
     background-position: center;
-   // border-right: 3px solid $black-color;
-    
+   // border-right: 3px solid $black-color; 
   }
+
+  @media (max-width: 767px) {
+    .backim {
+      width: 100%;
+    } 
+  }  
 
   .rsvp-btn {
     position: absolute;
