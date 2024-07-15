@@ -292,7 +292,6 @@ Hero
 
 .hero {
   height: 100vh;
-  min-height: 750px;
   background-color: $off-white;
 
   .backim {
@@ -306,12 +305,6 @@ Hero
     background-position: center;
    // border-right: 3px solid $black-color; 
   }
-
-  @media (max-width: 767px) {
-    .backim {
-      width: 100%;
-    } 
-  }  
 
   .rsvp-btn {
     position: absolute;
