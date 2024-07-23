@@ -901,7 +901,8 @@ input[type="checkbox"] {
        }
     }
     .short-answer {
-      margin-bottom: 30px;
+      margin-bottom: 15px;
+      margin-top: 15px;
     }
   }
 }
@@ -951,4 +952,13 @@ body.modal-open {
 }
 .modal-body {
   padding:25px;
+}
+
+ul.textlist {
+  font-size: $font-size-p;
+
+  li {
+    list-style: circle;
+    list-style-position: inside;
+  }
 }

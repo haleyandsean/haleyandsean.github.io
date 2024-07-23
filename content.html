@@ -356,7 +356,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span>
                 </button>
                 <h2>RSVP Form</h2>
-                <p>We have found <span id="num_guests">?</span> invitations for your household</p>
+                <p>We have found <span id="num_guests">?</span> invitations for your household.<span id="edit_message"></span></p>
                 <form id="checkbox-rsvp" class="rsvp-form">
                     <table class="table">
                         <thead>
@@ -370,6 +370,12 @@
                             <!-- Dynamically populated content will be added here -->
                         </tbody>
                     </table>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-input-group">
+                            <input id="email" name="email" class="small-input",
+                                   placeholder="Email address?"></input>
+                        </div>
+                    </div>
 
                     <div class="col-md-12 col-sm-12">
                         <div class="form-input-group short-answer">

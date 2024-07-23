@@ -151,23 +151,23 @@ $(document).ready(function () {
         },
         data: {
             // Event title
-            title: "Ram and Antara's Wedding",
+            title: "Haley and Sean's Wedding",
 
             // Event start date
-            start: new Date('Nov 27, 2017 10:00'),
+            start: new Date('June 28, 2025 15:30'),
 
             // Event duration (IN MINUTES)
             // duration: 120,
 
             // You can also choose to set an end time
             // If an end time is set, this will take precedence over duration
-            end: new Date('Nov 29, 2017 00:00'),
+            end: new Date('June 28, 2025 00:00'),
 
             // Event Address
-            address: 'ITC Fortune Park Hotel, Kolkata',
+            address: 'Terra Mia Resort and Wedding Venue, 1693 Arbor Rd, Paso Robles, CA 93446',
 
             // Event Description
-            description: "We can't wait to see you on our big day. For any queries or issues, please contact Mr. Amit Roy at +91 9876543210."
+            description: "We're so excited to see you! If you have any questions, feel free to reach out at parmeseanmac@gmail.com or your preferred communication channel."
         }
     });
 
@@ -185,14 +185,21 @@ $(document).ready(function () {
     });
 
     $("#rsvp-fetch").on('shown.bs.modal', function () {
-        var sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS8liDt1TSFf_apNdPtoDdzYlwYy2NyibnmLLjacWmyBsBoRh7hfQMLhPHe_uP74HmqhfVptGtdAAuc/pub?gid=924980658&single=true&output=csv';
+        var sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRs9aRCJ4o76Ehvm_qPuoRrnpkzpTI6CIrqAqS0OgScKCwmaHOQemEI3NNzhSpZuw6_aE_OmZsY6VaA/pub?gid=1548690852&single=true&output=csv';
+        
+        var responseUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRs9aRCJ4o76Ehvm_qPuoRrnpkzpTI6CIrqAqS0OgScKCwmaHOQemEI3NNzhSpZuw6_aE_OmZsY6VaA/pub?gid=564948722&single=true&output=tsv';
 
         // Validate form input
         var name = $('#name').val();
 
         fetch(sheetUrl)
             .then((response) => response.text())
-            .then((data) => createForm(data, name));
+            .then((data) => {
+                createForm(data, name);
+                return fetch(responseUrl);
+            })
+            .then((response2) => response2.text())
+            .then((data2) => checkEdit(data2));
     });
 
     $('#rsvp-fetch').on('hidden.bs.modal', function () {
@@ -226,7 +233,7 @@ $(document).ready(function () {
         $('#alert-wrapper').html(alert_markup('info', '<strong>Just a sec!</strong> We are saving your details.'));
         $("#rsvp-fetch").modal('hide');       
         $('#rsvp-modal').modal('show');
-        $.post('https://script.google.com/macros/s/AKfycbwjam6jhAxoW0kWo2ya4tjh6KDGEhTFyvbr534k_44CC4ESQVLwnFXvScgNH821Er2-/exec', formObject)
+        $.post('https://script.google.com/macros/s/AKfycbxjWVm1Mx9Ky55G4HncbZ8MnaBuqGrXb0tSnfG6DXpyacCQqfWHo-UfFhV1NSNs1loU/exec', formObject)
         .done(function (data) {
             console.log(data);
             if (data.result === "error") {
@@ -246,6 +253,108 @@ $(document).ready(function () {
 });
 
 /********************** Extras **********************/
+
+function serializeForm(form) {
+    const formData = new FormData(form);
+    form.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
+        if (!formData.has(checkbox.name)) {
+            formData.append(checkbox.name, checkbox.value);
+        }
+    });
+    const params = new URLSearchParams(formData).toString();
+    return params;
+}
+
+function extractNumber(str) {
+    const match = str.match(/(\d+)$/); // Match one or more digits at the end of the string
+    return match ? parseInt(match[0], 10) : null;
+}
+
+function checkEdit(csv) {
+    const rows = csv.split('\n');
+
+    var form = document.getElementById('checkbox-rsvp');
+    var data = serializeForm(form);
+    console.log(data);
+
+    const params = new URLSearchParams(data);
+    var names = [];
+    var idxs = [];
+    for (const [name, value] of params) {
+        if (name.includes('guest_name')){
+            names.push(value);
+            idxs.push(extractNumber(name));
+        }
+    }
+
+    var rowIdxs = [];
+    rows.forEach((row, ridx) => {
+        const cols = row.split('\t');
+        for (const [index, name] of names.entries()){
+            if ((cols[1].trim() == name.trim()) | (cols[4].trim() == name.trim())){
+                if(!rowIdxs.includes(ridx)){rowIdxs.push(ridx);}
+            }
+        }
+    });
+
+    rowIdxs = rowIdxs.slice(-names.length);
+
+    var submitDict = {}
+    var otherDict = {}
+    rows.forEach((row, ridx) => {
+        const cols = row.split('\t');
+        if ((ridx == 0)) { return; }
+        if (rowIdxs.includes(ridx)){
+            console.log(cols);
+            var index = rowIdxs.indexOf(ridx);
+            if(cols[1].trim() == cols[4].trim()){
+                submitDict[`guest_name_${idxs[index]}`] = cols[1].trim();
+                submitDict[`attending_${idxs[index]}`] = cols[2];
+                submitDict[`declines_${idxs[index]}`] = cols[3];
+                submitDict['email'] = cols[5];
+                submitDict['diet'] = cols[6];
+                submitDict['haiku'] = cols[7];
+                submitDict['comments'] = cols[8];
+            }
+            else{
+                otherDict[`guest_name_${idxs[index]}`] = cols[1].trim();
+                otherDict[`attending_${idxs[index]}`] = cols[2];
+                otherDict[`declines_${idxs[index]}`] = cols[3];
+            }
+        }
+    });
+
+    console.log(submitDict);
+    console.log(otherDict);
+    var editing = false;
+    for (const [name, value] of params) {
+        const fields = form.querySelectorAll(`[name="${name}"]`);
+        fields.forEach(field => {
+            if (name in submitDict){
+                editing = true;
+                if (field.type === 'radio' || field.type === 'checkbox') {
+                    field.checked = (submitDict[name].trim() == "TRUE");
+                } else {
+                    field.value = submitDict[name];
+                }
+            } else if (name in otherDict){
+                editing = true;
+                if (field.type === 'radio' || field.type === 'checkbox') {
+                    field.checked = (otherDict[name].trim() == "TRUE");
+                } else {
+                    field.value = otherDict[name];
+                }
+            }
+        });
+    }
+
+    if (editing){
+        var editMessage = document.getElementById('edit_message');
+        editMessage.textContent = " You have already responded. Feel free to edit!";
+    }
+
+}
+
 
 function displayCSVData(csv, name) {
     const rows = csv.split('\n');
@@ -278,15 +387,29 @@ function displayCSVData(csv, name) {
 function getNumInvites(csv, name) {
     const rows = csv.split('\n');
    
-    var numInvites = 0;
+    var guestID = '';
     rows.forEach((row, index) => {
         const cols = row.split(',');
-        if ((cols[0] == name) && (index != 0)){
-            numInvites = cols[1];
+        if ((index == 0) || (guestID != '')) { return; }
+        if ((cols[0].trim() == name.trim()) && (cols[0] != '')) {
+            guestID = cols[1]; 
         }
     });
 
-    return numInvites;
+    var numInvites = 0;
+    var names = [name.trim()];
+    rows.forEach((row, index) => {
+        const cols = row.split(',');
+        if (index == 0) { return; }
+        if (cols[1].trim() == guestID.trim()) {
+            if (cols[0].trim() != name.trim()){
+                names.push(cols[0].trim());
+            }
+            numInvites += 1; 
+        }
+    });
+
+    return { numInvites, names };
 }
 
  // Function to create and return a row with textbox and checkboxes
@@ -309,7 +432,7 @@ function createRow(index, name) {
     textboxCell.appendChild(tb_wrap);
     row.appendChild(textboxCell);
 
-    if (index === 0) {
+    if (name != '') {
         // Pre-fill the first textbox in the first row
         textbox.value = name;
     }
@@ -363,12 +486,12 @@ function addRow(name) {
 
 // Function to create checkboxes dynamically
 function createForm(csv, name) {
-    var numInvites = getNumInvites(csv, name);
+    var {numInvites, names} = getNumInvites(csv, name);
     document.getElementById('num_guests').textContent = `${numInvites}`;
     document.getElementById('num_guests').value = numInvites;
 
     for (let i = 0; i < numInvites; i++) {
-        addRow(name);
+        addRow(names[i]);
     }
 }
 
@@ -382,7 +505,7 @@ function reInitializeForm(){
 
 // Function to create checkboxes dynamically
 function createChecklist(csv, name) {
-    var numInvites = getNumInvites(csv, name);
+    var { numInvites, names } = getNumInvites(csv, name);
     var checkboxList = document.getElementById('checkboxList');
 
     for (let i = 0; i < numInvites; i++) {
