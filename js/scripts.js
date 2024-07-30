@@ -179,12 +179,8 @@ $(document).ready(function () {
         e.preventDefault(); // Prevent the default form submission behavior
 
         $('#alert-wrapper-name').html(alert_markup('info', '<strong>Just a sec!</strong> Looking up your details.'));
+        $("#load-im-submit").attr('src', 'img/fancybox_loading.gif');
 
-        $('#rsvp-fetch').modal('show');
-
-    });
-
-    $("#rsvp-fetch").on('shown.bs.modal', function () {
         var sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRs9aRCJ4o76Ehvm_qPuoRrnpkzpTI6CIrqAqS0OgScKCwmaHOQemEI3NNzhSpZuw6_aE_OmZsY6VaA/pub?gid=1548690852&single=true&output=csv';
         
         var responseUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRs9aRCJ4o76Ehvm_qPuoRrnpkzpTI6CIrqAqS0OgScKCwmaHOQemEI3NNzhSpZuw6_aE_OmZsY6VaA/pub?gid=564948722&single=true&output=tsv';
@@ -199,11 +195,19 @@ $(document).ready(function () {
                 return fetch(responseUrl);
             })
             .then((response2) => response2.text())
-            .then((data2) => checkEdit(data2));
+            .then((data2) => checkEdit(data2))
+            .then(()=>{$('#rsvp-fetch').modal('show');});
+    });
+
+    $('#rsvp-fetch').on('shown.bs.modal', function () {
+        $("#load-im-submit").attr('src', '');
     });
 
     $('#rsvp-fetch').on('hidden.bs.modal', function () {
         reInitializeForm();
+        $('#alert-wrapper-name').html('');
+        $('#modal-message').text("Please wait while your response is recorded...");
+        $('#load-im').attr('src', 'img/fancybox_loading.gif');
     });
 
     $("#checkbox-rsvp").on('submit', function(e) {
@@ -240,7 +244,8 @@ $(document).ready(function () {
                 $('#alert-wrapper').html(alert_markup('danger', data.message));
             } else {
                 $('#alert-wrapper').html('');
-                $('#rsvp-modal').modal('show');
+                $('#load-im').attr('src','');
+                $('#modal-message').text("Submission successful!");
             }
         })
         .fail(function (data) {
@@ -459,6 +464,7 @@ function createRow(index, name) {
     checkbox1.addEventListener('change', function() {
       if (checkbox1.checked) {
         checkbox2.disabled = true;
+        checkbox2.checked = false;
       } else {
         checkbox2.disabled = false;
       }
@@ -467,6 +473,7 @@ function createRow(index, name) {
     checkbox2.addEventListener('change', function() {
       if (checkbox2.checked) {
         checkbox1.disabled = true;
+        checkbox1.checked = false;
       } else {
         checkbox1.disabled = false;
       }
@@ -500,6 +507,13 @@ function reInitializeForm(){
     var formBody = document.getElementById('rsvpBody');
     formBody.innerHTML = "";
     form.reset();
+    
+    var editMessage = document.getElementById('edit_message');
+    editMessage.textContent = '';
+
+    var numGuests = document.getElementById('num_guests');
+    numGuests.textContent = '?';
+    numGuests.value = 0;
 }
 
 
