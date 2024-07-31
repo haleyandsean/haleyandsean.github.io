@@ -173,6 +173,18 @@ $(document).ready(function () {
 
     $('#add-to-cal').html(myCalendar);
 
+    $(".collapsible").click(function() {
+        $(this).toggleClass("active");
+        var content = $(this).prev(".gallery-container");
+        
+        if ($(this).hasClass("active")){
+            content.css("max-height", content.prop("scrollHeight") + "px");
+        } else {
+            content.css("max-height", "50vh");
+        }
+        $(this).find("i.fa").toggleClass("fa-angle-down fa-angle-up");
+        content.toggleClass('remove');
+    });
 
     /********************** RSVP **********************/
     $('#rsvp-form-name').on('submit', function (e) {
