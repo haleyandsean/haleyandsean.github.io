@@ -1,0 +1,215 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Haley & Sean are getting maaaaaarried!</title>
+    <meta name="description" content="We would like to invite you to our big day.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="Haley & Sean are getting maaaaaarried!">
+    <meta property="og:description" content="We would like to invite you to our big day.">
+    <meta property="og:image" content="img/hero-min.jpg">
+    <meta property="og:type" content="website">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logo-sq.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logo-sq.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo-sq.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+
+    <script>
+        // load css files from CDN if local node_modules fail
+        function loadCssFromCDN(css) {
+            // create new link tag
+            const link = document.createElement('link');
+            if (css === 'animate.css') {
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css';
+            } else if (css === 'font-awesome.css') {
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css';
+            }
+            link.rel = 'stylesheet';
+
+            // add link tag to head section
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+
+        // load js files from CDN if local node_modules fail
+        function loadJsFromCDN(js) {
+            if (js === 'waypoints.js') {
+                document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"><\/script>');
+            } else if (js === 'jquery.js') {
+                document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"><\/script>');
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.css">
+    <link rel="stylesheet" href="css/flexslider.css">
+    <link rel="stylesheet" href="css/styles.min.css">
+    <link rel="stylesheet" href="css/queries.css">
+    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css" onerror="loadCssFromCDN('animate.css')">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" onerror="loadCssFromCDN('font-awesome.css')">
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<body id="top">
+
+
+<section class="navigation">
+    <header>
+        <div class="header-content">
+            <div class="logo"><a href="content.html"><img src="img/logo.png" alt="Logo"></a></div>
+            <div id="header-nav" class="header-nav">
+                <nav>
+                    <ul class="primary-nav">
+                        <li><a href="content.html#intro">How we met</a></li>
+                        <li><a href="content.html#events">Events</a></li>
+                        <!--<li><a href="#instagram">Instagram</a></li>-->
+                        <li><a href="content.html#eng-pics">Photos</a></li>
+                        <li><a href="attractions.html"> Local Attractions </a></li>
+                        <li><a href="faqs.html"> Travel & FAQs </a></li>
+                    </ul>
+                    <ul class="member-actions">
+                        <li><a href="content.html#map" class="login">Venue</a></li>
+                        <li><a href="content.html#rsvp" class="btn-white btn-small">RSVP</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="navicon">
+                <a class="nav-toggle" href="#"><span></span></a>
+            </div>
+        </div>
+    </header>
+</section>
+
+<section class="map">
+     <iframe width="100%" height="450" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJY1KAFdXa7IARS4eF2nyEm6k&key=AIzaSyDcT0SuL2LyQY7oXXdNEQeL3OtExRo4EPU"></iframe>
+</section>
+
+<section id="travel" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-left">
+                <h3>Travel Information</h3>
+                <p> 
+                <b>Discounts</b> Passing the savings on to youuuu! We are pleased to offer a rental car discount code for Hertz. Use 2187703 for 20% off your booking.
+                </p>
+                <p> 
+                <b>Where do I fly in?</b> <b>San Luis Obispo (SBP)</b> is the closest airport to Paso (~30 min drive/Uber-able), and likely the best option if you're 
+                not planning on renting a car. While it's a little smaller of an airport, most places have a connecting 
+                flight option. If you are renting a car and don't mind driving a few hours, any of the airports in the <b>Bay Area (likely SFO or SJC)</b> are good options, as 
+                is <b>Los Angeles (LAX)</b>. The drive from either of these is ~3.5 hours. Let us know if you need any assistance or recommendations. There are some 
+                connecting bus/train options from the Bay/LA, but these will probably add time to your overall trip.
+                </p>
+                <p>
+                <b> Where do I stay?</b> We suspect vacation rentals will be a better option for most people than hotels, and recommend
+                you do that. There are several good options:
+                </p>
+                <ul class="textlist">
+                    <li>Paso Robles Vacation Rentals: <a class="text-link" href="https://pasoroblesvacationrentals.com/">https://pasoroblesvacationrentals.com/</a> </li>
+                    <li><a class="text-link" href="https://www.airbnb.com/s/Paso-Robles--California--United-States/homes?tab_id=home_tab&refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2024-09-01&monthly_length=3&monthly_end_date=2024-12-01&price_filter_input_type=2&channel=EXPLORE&query=Paso%20Robles%2C%20CA&place_id=ChIJvcTFFo_d7IAR79XMkfgilEY&location_bb=Qg7C1MLxDrBCDk6xwvFqZg%3D%3D&date_picker_type=calendar&checkin=2025-06-27&checkout=2025-06-29&source=structured_search_input_header&search_type=autocomplete_click">Airbnb</a></li>
+                    <li><a class="text-link" href=https://www.vrbo.com/search?destination=Paso%20Robles%2C%20California%2C%20United%20States%20of%20America&regionId=9468&latLong=35.62775%2C-120.691468&flexibility=0_DAY&d1=2025-06-27&startDate=2025-06-27&d2=2025-06-29&endDate=2025-06-29&adults=2&theme=&userIntent=&semdtl=&sort=RECOMMENDEDVRBO>VRBO</a></li>
+                    <li>Local winery guest houses</li>
+                </ul>
+                <p>
+                    If you're staying in Paso beyond the wedding (even if just for a day or two), we recommend staying within 
+                    walking distance of the main town square for access to restaurants, tasting rooms, etc. Use 
+                    <a class="text-link" href="https://maps.app.goo.gl/htcHtChEpHXRDyos9">Downtown City Park</a> as your 
+                    reference point on a map.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faqs" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-left">
+                <h3>Frequently Asked Questions (from all the times we've been married before)</h3>
+                <p><b>I took high school Spanish, I'm pronouncing Paso Robles right, right?</b> Nope, locals say pass-oh row-buhls.</p>
+
+                <p><b>When should I RSVP by?</b> April 28th, 2025, but as soon as possible will help us with planning. If you need more time,
+                please <a href="mailto:parmeseanmac@gmail.com" class="text-link">reach out</a>.</p>
+
+                <p><b>Am I allowed to bring my children?</b> We've included them on your invitation, please indicate in your RSVP if 
+                they're coming or not. If you don't see a spot for them and expect one, let us know. While we're happy to have them 
+                in attendance, please note that we will not be providing childcare or child-specific entertainment (no wine for kids), 
+                so you will be responsible for them. </p>
+
+                <p><b>Am I allowed to bring a plus one?</b> We've set up our RSVP system to automatically grab the number of invitations
+                associated with your name. If you don't seem to have enough slots, feel free to
+                <a href="mailto:parmeseanmac@gmail.com" class="text-link">reach out</a> &mdash; our web developer<a href="#footnote1" id="ref1" class="text-link">*</a> 
+                isn't paid enough, so might've left some bugs in there.</p>
+
+                <p><b>What time should I arrive?</b> You're welcome to come to the venue starting at 3:00pm for a welcome drink. We plan 
+                to start the ceremony promptly at 3:30pm. Cocktail hour and reception will follow, starting from around 4:00pm.</p>
+
+                <p><b>What time should I leave?</b> We need to stop playing amplified music by 10:00pm because of a county-wide noise 
+                curfew. Everyone needs to be off the property by 11:00pm. We will likely try to coordinate an after-party, stay tuned 
+                for details. For our guests wishing to depart earlier, we should be done with dinner and starting the dance party 
+                somewhere in the 7:00pm - 8:00pm area.</p>
+
+                <p><b>Transportation, what's the deal with that?</b> See <a class="text-link" href=#travel>above</a> for details on flights 
+                and accommodation. The venue is a ~10 min drive from downtown Paso. If you plan to drink, we strongly encourage taking Uber/Lyft, 
+                and there is plenty of availability of Ubers and Lyfts both from the venue and in Paso Robles itself. If you aren't drinking or 
+                have a designated driver, there is parking available at the venue, and overnight parking is ok if you need to Uber home. Because of 
+                the rideshare availabilty, we will not be offering a shuttle service, but let us know if you have transportation concerns.
+                </p>
+
+                <p><b>Dress code?</b> We're thinking hot, we're thinking summer, we're thinking fancy weekend in Positano. The whole wedding will
+                be outdoors, and Paso can be very sunny and toasty during the summer. At night it may cool down a bit, so an extra layer might be 
+                needed for our guests who run a little cold. Our wedding colors are bright and citrusy, so summery, sunny, colorful outfits are encouraged, but not required. 
+                In terms of "official" categories, we're targeting the regime of "festive" and "semi-formal".
+                </p>
+
+                <p><b>Photography/social media?</b> We kindly request that you don't take photos during the ceremony &mdash; let our photographers 
+                do their job! Feel free to take copious amounts of photos otherwise, we'd love to see them! You're welcome to share any photos of 
+                the two of us on social media (unless they're reaaally compromising). Our wedding hashtag is #meetthemacleowskis (at least until we 
+                think of something better). If you're sharing official wedding photos, we encourage you to tag our 
+                photographers (<a class="text-link" href="https://www.instagram.com/mooncrestmedia/">@mooncrestmedia </a>). If you're sharing photos of floral arrangements, please tag our 
+                florist (<a class="text-link" href="https://www.instagram.com/maunaflorist/?hl=en">@maunaflorist</a>).
+                Please respect other people's privacy &mdash; don't share photos of other people's children without checking with their parents.
+                </p>
+
+                <p><b>🍹🍷🍸🥂🍾🍺🍻?</b> We plan to have an open bar, featuring beer, wine, and 
+                <a class="text-link" href="https://www.foodandwine.com/aperol-schvitz-cocktail-6833681">spritzes</a>, as well as some fun non-alcoholic drinks. </p> 
+
+                <p><b>What do we call you, once you're married?</b> As much as we love the last name MacLeowski, we will both be keeping our names. I now 
+                pronounce us Dr. and Dr.</p>
+
+                <p><b>Let us shower you with gifts and praise!</b> We appreciate that this is a destination wedding for many of you, and the best gift of 
+                all is your participation in our wedding and in our lives. While gifts beyond that are neither expected nor 
+                required, we know that some of you are persistent, so we've set up some gift options <a class="text-link" href="registry.html">here</a>. For praise, feel 
+                free to email us at <a href="mailto:parmeseanmac@gmail.com" class="text-link">parmeseanmac@gmail.com</a>.
+                </p>
+
+             </div>
+        </div>
+
+        <div class="footnote">
+            <ol class="no-numbers">
+                <li id="footnote1"><a href="#ref1" class="text-link">*</a> Sean Gasiorowski</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<script src="js/vendor/jquery-1.11.2.min.js" onerror="loadJsFromCDN('jquery.js')"></script>
+<script src="node_modules/waypoints/lib/jquery.waypoints.min.js" onerror="loadJsFromCDN('waypoints.js')"></script>
+<script src="js/jquery.fancybox.pack.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/jquery.flexslider-min.js"></script>
+<script src="js/jquery.mb.YTPlayer.min.js"></script>
+<script src="js/vendor/ouical.js"></script>
+<script src="js/scripts.min.js"></script>
+</body>
+</html>

@@ -77,6 +77,9 @@ section .header {
 .section-border {
   border-bottom: 1px solid $keyline-color;
 }
+.pad-top {
+  padding-top: 110px;
+}
 .tooltip {
   position: absolute;
   z-index: 1070;
@@ -517,7 +520,6 @@ Intro
     transform: scale(1.05);
 }
 
-
 @media (max-aspect-ratio: 1/1) {
     .gallery-item {
         height: 30vh;
@@ -545,6 +547,31 @@ Intro
     max-height: 75vh;
     min-width: 0;
   }
+}
+
+.money-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.money-img {
+  width: 30%;
+  margin: 10px;
+}
+
+.money-img img {
+    width: 100%;
+    max-height: 400px; /* Adjust the height as needed */
+    object-fit: contain;
+}
+
+@media (max-width: 1091px) {
+    .money-img {
+        width: 90%;
+        max-height: 400px;
+    }
 }
 
 /* ==========================================================================
