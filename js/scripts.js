@@ -154,14 +154,14 @@ $(document).ready(function () {
             title: "Haley and Sean's Wedding",
 
             // Event start date
-            start: new Date('June 28, 2025 15:30'),
+            start: new Date('June 28, 2025 15:00'),
 
             // Event duration (IN MINUTES)
             // duration: 120,
 
             // You can also choose to set an end time
             // If an end time is set, this will take precedence over duration
-            end: new Date('June 28, 2025 00:00'),
+            end: new Date('June 28, 2025 23:00'),
 
             // Event Address
             address: 'Terra Mia Resort and Wedding Venue, 1693 Arbor Rd, Paso Robles, CA 93446',
@@ -170,9 +170,10 @@ $(document).ready(function () {
             description: "We're so excited to see you! If you have any questions, feel free to reach out at parmeseanmac@gmail.com or your preferred communication channel."
         }
     });
+    console.log(myCalendar);
 
     $('#add-to-cal').html(myCalendar);
-
+    
     $(".collapsible").click(function() {
         $(this).toggleClass("active");
         var content = $(this).prev(".gallery-container");
@@ -208,7 +209,14 @@ $(document).ready(function () {
             })
             .then((response2) => response2.text())
             .then((data2) => checkEdit(data2))
-            .then(()=>{$('#rsvp-fetch').modal('show');});
+            .then(()=>{
+                if ($('#num_guests').val() > 0) {
+                    $('#rsvp-fetch').modal('show');
+                } else {
+                    $('#alert-wrapper-name').html(alert_markup('danger', "<strong>Oops!</strong> We can't find an invite under that name. <a class=\"text-link\" href=\mailto:parmeseanmac@gmail.com\">Email us</a> if you suspect there's an issue."));
+                    $("#load-im-submit").attr('src', '');
+                }
+            });
     });
 
     $('#rsvp-fetch').on('shown.bs.modal', function () {
@@ -306,7 +314,7 @@ function checkEdit(csv) {
 
     var rowIdxs = [];
     rows.forEach((row, ridx) => {
-        const cols = row.split('\t');
+        const cols = row.replace("\r", "").split('\t');
         for (const [index, name] of names.entries()){
             if ((cols[1].trim() == name.trim()) | (cols[4].trim() == name.trim())){
                 if(!rowIdxs.includes(ridx)){rowIdxs.push(ridx);}
@@ -330,8 +338,8 @@ function checkEdit(csv) {
                 submitDict[`declines_${idxs[index]}`] = cols[3];
                 submitDict['email'] = cols[5];
                 submitDict['diet'] = cols[6];
-                submitDict['haiku'] = cols[7];
-                submitDict['comments'] = cols[8];
+                submitDict['haiku'] = cols[7].replace(/\r\s*/g, "\r");
+                submitDict['comments'] = cols[8].replace(/\r/g, "");
             }
             else{
                 otherDict[`guest_name_${idxs[index]}`] = cols[1].trim();
@@ -341,8 +349,6 @@ function checkEdit(csv) {
         }
     });
 
-    console.log(submitDict);
-    console.log(otherDict);
     var editing = false;
     for (const [name, value] of params) {
         const fields = form.querySelectorAll(`[name="${name}"]`);
@@ -405,21 +411,23 @@ function getNumInvites(csv, name) {
     const rows = csv.split('\n');
    
     var guestID = '';
+    var properName = '';
     rows.forEach((row, index) => {
         const cols = row.split(',');
         if ((index == 0) || (guestID != '')) { return; }
-        if ((cols[0].trim() == name.trim()) && (cols[0] != '')) {
+        if ((cols[0].trim().toUpperCase() == name.trim().toUpperCase()) && (cols[0] != '')) {
             guestID = cols[1]; 
+            properName = cols[0];
         }
     });
 
     var numInvites = 0;
-    var names = [name.trim()];
+    var names = [properName.trim()];
     rows.forEach((row, index) => {
         const cols = row.split(',');
         if (index == 0) { return; }
         if (cols[1].trim() == guestID.trim()) {
-            if (cols[0].trim() != name.trim()){
+            if (cols[0].trim() != properName.trim()){
                 names.push(cols[0].trim());
             }
             numInvites += 1; 

@@ -26,7 +26,7 @@
                 '&location=' + (event.address || ''),
                 '&sprop=&sprop=name:'
             ].join(''));
-            return '<a class="icon-google" target="_blank" href="' +
+            return '<a class="icon-google text-link" target="_blank" href="' +
                 href + '">Google Calendar</a>';
         },
 
@@ -59,7 +59,7 @@
                 '&in_loc=' + (event.address || '')
             ].join(''));
 
-            return '<a class="icon-yahoo" target="_blank" href="' +
+            return '<a class="icon-yahoo text-link" target="_blank" href="' +
                 href + '">Yahoo! Calendar</a>';
         },
 
@@ -81,8 +81,8 @@
                     'END:VEVENT',
                     'END:VCALENDAR'].join('\n'));
 
-            return '<a class="' + eClass + '" target="_blank" href="' +
-                href + '">' + calendarName + ' Calendar</a>';
+            return '<a class="' + eClass + " text-link" + '" target="_blank" href="' +
+                href + '"download="wedding.ics">' + calendarName + ' Calendar</a>';
         },
 
         ical: function(event) {
@@ -97,7 +97,6 @@
     var generateCalendars = function(event) {
         return {
             google: calendarGenerators.google(event),
-            yahoo: calendarGenerators.yahoo(event),
             ical: calendarGenerators.ical(event),
             outlook: calendarGenerators.outlook(event)
         };
