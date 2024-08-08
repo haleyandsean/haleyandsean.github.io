@@ -187,6 +187,23 @@ $(document).ready(function () {
         content.toggleClass('remove');
     });
 
+    /********************** Image Lightbox ************/
+    $('.gallery-image').click(function() {
+        var ImgSrc = $(this).attr('src');
+        $('#lightbox-content').attr('src', ImgSrc);
+        $('#lightbox').css('display', 'flex').hide().fadeIn();
+    });
+
+    $('.close, #lightbox').click(function() {
+        $('#lightbox').fadeOut();
+    });
+
+    // Prevent the lightbox from closing when clicking on the image itself
+    $('#lightbox-content').click(function(event) {
+        event.stopPropagation();
+    });
+
+
     /********************** RSVP **********************/
     $('#rsvp-form-name').on('submit', function (e) {
         e.preventDefault(); // Prevent the default form submission behavior
