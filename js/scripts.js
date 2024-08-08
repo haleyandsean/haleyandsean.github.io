@@ -192,7 +192,7 @@ $(document).ready(function () {
         e.preventDefault(); // Prevent the default form submission behavior
 
         $('#alert-wrapper-name').html(alert_markup('info', '<strong>Just a sec!</strong> Looking up your details.'));
-        $("#load-im-submit").attr('src', 'img/fancybox_loading.gif');
+        $("#load-im-submit").attr('src', 'img/fancybox_loading.gif').css('display', '');
 
         var sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRs9aRCJ4o76Ehvm_qPuoRrnpkzpTI6CIrqAqS0OgScKCwmaHOQemEI3NNzhSpZuw6_aE_OmZsY6VaA/pub?gid=1548690852&single=true&output=csv';
         
@@ -214,20 +214,20 @@ $(document).ready(function () {
                     $('#rsvp-fetch').modal('show');
                 } else {
                     $('#alert-wrapper-name').html(alert_markup('danger', "<strong>Oops!</strong> We can't find an invite under that name. <a class=\"text-link\" href=\mailto:parmeseanmac@gmail.com\">Email us</a> if you suspect there's an issue."));
-                    $("#load-im-submit").attr('src', '');
+                    $("#load-im-submit").attr('src', '').css('display', 'none');
                 }
             });
     });
 
     $('#rsvp-fetch').on('shown.bs.modal', function () {
-        $("#load-im-submit").attr('src', '');
+        $("#load-im-submit").attr('src', '').css('display', 'none');
     });
 
     $('#rsvp-fetch').on('hidden.bs.modal', function () {
         reInitializeForm();
         $('#alert-wrapper-name').html('');
         $('#modal-message').text("Please wait while your response is recorded...");
-        $('#load-im').attr('src', 'img/fancybox_loading.gif');
+        $('#load-im').attr('src', 'img/fancybox_loading.gif').css('display', '');
     });
 
     $("#checkbox-rsvp").on('submit', function(e) {
@@ -264,7 +264,7 @@ $(document).ready(function () {
                 $('#alert-wrapper').html(alert_markup('danger', data.message));
             } else {
                 $('#alert-wrapper').html('');
-                $('#load-im').attr('src','');
+                $('#load-im').attr('src','').css('display', 'none');
                 $('#modal-message').text("Submission successful!");
             }
         })
