@@ -188,9 +188,31 @@ $(document).ready(function () {
     });
 
     /********************** Image Lightbox ************/
+
+    var images = $('.gallery-image');
+    var currentIndex = -1;
+
+    function changeImage(index) {
+        var imgSrc = $(images[index]).attr('src');
+        $('#lightbox-content').attr('src', imgSrc);
+
+        // Hide/show arrows based on currentIndex
+        if (index === 0) {
+            $('.left-arrow').hide();  // Hide left arrow if on the first image
+        } else {
+            $('.left-arrow').show();  // Show left arrow otherwise
+        }
+
+        if (index === images.length - 1) {
+            $('.right-arrow').hide();  // Hide right arrow if on the last image
+        } else {
+            $('.right-arrow').show();  // Show right arrow otherwise
+        }
+    }
+
     $('.gallery-image').click(function() {
-        var ImgSrc = $(this).attr('src');
-        $('#lightbox-content').attr('src', ImgSrc);
+        currentIndex = images.index(this);
+        changeImage(currentIndex);
         $('#lightbox').css('display', 'flex').hide().fadeIn();
     });
 
@@ -201,6 +223,38 @@ $(document).ready(function () {
     // Prevent the lightbox from closing when clicking on the image itself
     $('#lightbox-content').click(function(event) {
         event.stopPropagation();
+    });
+
+    $('.light-arrow').click(function(event) {
+        event.stopPropagation();
+    });
+
+    // Keydown event for arrow keys
+    $(document).keydown(function(event) {
+        if ($('#lightbox').is(':visible')) {
+            if (event.key === 'ArrowRight') {
+                if (currentIndex + 1 < images.length){
+                    currentIndex = (currentIndex + 1) % images.length; // Move to the next image
+                    changeImage(currentIndex);
+                }
+            } else if (event.key === 'ArrowLeft') {
+                if (currentIndex > 0) {
+                    currentIndex = (currentIndex - 1 + images.length) % images.length; // Move to the previous image
+                    changeImage(currentIndex);
+                }
+            }
+        }
+    });
+
+    // Navigate with arrow buttons
+    $('.right-arrow').click(function() {
+        currentIndex = (currentIndex + 1) % images.length;
+        changeImage(currentIndex);
+    });
+
+    $('.left-arrow').click(function() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        changeImage(currentIndex);
     });
 
 

@@ -578,6 +578,50 @@ Intro
     cursor: pointer;
 }
 
+.light-arrow {
+    position: absolute;
+    top: 50%;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    padding: 20px;
+    transform: translateY(-50%);
+}
+
+.left-arrow {
+    left: 20px;
+}
+
+.right-arrow {
+    right: 20px;
+}
+
+.light-arrow:hover {
+    color: #ccc; /* Change color on hover */
+}
+
+/* Media Query for Small Screens */
+@media (max-width: 1091px) {
+    .arrow {
+        font-size: 30px; /* Smaller arrows */
+        padding: 10px;
+    }
+
+    .left-arrow {
+        left: 10px; /* Move arrows further outside the image */
+    }
+
+    .right-arrow {
+        right: 10px;
+    }
+
+    .lightbox-content {
+        max-width: 80%;
+        max-height: 80%;
+    }
+}
+
 .money-container {
     display: flex;
     flex-wrap: wrap;
