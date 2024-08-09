@@ -154,14 +154,14 @@ $(document).ready(function () {
             title: "Haley and Sean's Wedding",
 
             // Event start date
-            start: new Date('June 28, 2025 15:00'),
+            start: new Date("2025-06-28T22:00:00.000Z"), 
 
             // Event duration (IN MINUTES)
             // duration: 120,
 
             // You can also choose to set an end time
             // If an end time is set, this will take precedence over duration
-            end: new Date('June 28, 2025 23:00'),
+            end: new Date("2025-06-29T06:00:00.000Z"),
 
             // Event Address
             address: 'Terra Mia Resort and Wedding Venue, 1693 Arbor Rd, Paso Robles, CA 93446',
