@@ -328,11 +328,13 @@ $(document).ready(function () {
         $('#alert-wrapper').html(alert_markup('info', '<strong>Just a sec!</strong> We are saving your details.'));
         $("#rsvp-fetch").modal('hide');       
         $('#rsvp-modal').modal('show');
-        $.post('https://script.google.com/macros/s/AKfycbxjWVm1Mx9Ky55G4HncbZ8MnaBuqGrXb0tSnfG6DXpyacCQqfWHo-UfFhV1NSNs1loU/exec', formObject)
+        $.post('https://script.google.com/macros/s/AKfycbxtkKtSbl1lPB3fPva-r6Hy8NbuBZy2fm6oVOEafz1TeulgTdcyH3PKszt_iYc4ptej/exec', formObject)
         .done(function (data) {
             console.log(data);
             if (data.result === "error") {
                 $('#alert-wrapper').html(alert_markup('danger', data.message));
+                $('#load-im').attr('src','').css('display', 'none');
+                $('#modal-message').text("Submission failed! Please reach out to parmeseanmac@gmail.com.");
             } else {
                 $('#alert-wrapper').html('');
                 $('#load-im').attr('src','').css('display', 'none');
