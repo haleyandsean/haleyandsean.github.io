@@ -443,10 +443,17 @@ Intro
   img {
     width: 100%;
     height: auto;
+    display: block;
+    max-width: none;
   }
 }
 #intro p {
   text-align: center;
+}
+
+.date-container {
+    height: 400px;
+    overflow: auto; /* Enable scrolling if content overflows */
 }
 
 .collapsible {
