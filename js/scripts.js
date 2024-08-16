@@ -170,7 +170,6 @@ $(document).ready(function () {
             description: "We're so excited to see you! If you have any questions, feel free to reach out at parmeseanmac@gmail.com or your preferred communication channel."
         }
     });
-    console.log(myCalendar);
 
     $('#add-to-cal').html(myCalendar);
     
@@ -304,48 +303,85 @@ $(document).ready(function () {
     $("#checkbox-rsvp").on('submit', function(e) {
         e.preventDefault();
 
-        var data = $(this).serialize();
-        console.log(data);
+        var valid_email = true;
+        var email = document.getElementById('email').value;
+        if (email.trim() == ''){
+            $('#alert-wrapper-email').html(alert_markup('danger', 'Please enter your email'));
+            valid_email = false;
+        }
+        if (valid_email) {
+             $('#alert-wrapper-email').html('');
+        }
 
-        // Convert form data to an object
-        var formObject = {};
+        var valid_check = true;
+        for (var index = 0; index < $('#num_guests').val(); ++index) {
+            const checkbox_att = document.getElementById(`attending_${index}`);
+            const checkbox_dec = document.getElementById(`declines_${index}`);
 
-        formObject["num_guests"] = $('#num_guests').val();
-        $(this).serializeArray().forEach(function(item) {
-            formObject[item.name] = item.value;
-        });
-        console.log(formObject);
-
-        // Find unchecked checkboxes and add them to the object with value 'false'
-        $(this).find('input[type="checkbox"]').each(function() {
-            if (!$(this).is(':checked')) {
-            formObject[$(this).attr('name')] = 'false';
-            } else {
-            formObject[$(this).attr('name')] = 'true';
+            if (!checkbox_att.checked && !checkbox_dec.checked) {
+                // Display error message
+                $('#alert-wrapper-check').html(alert_markup('danger', 'Please check one option for each guest'));
+                valid_check = false;
             }
-         });
+        }
+        if (valid_check) {
+             $('#alert-wrapper-check').html('');
+        }
 
-        $('#alert-wrapper').html(alert_markup('info', '<strong>Just a sec!</strong> We are saving your details.'));
-        $("#rsvp-fetch").modal('hide');       
-        $('#rsvp-modal').modal('show');
-        $.post('https://script.google.com/macros/s/AKfycbxtkKtSbl1lPB3fPva-r6Hy8NbuBZy2fm6oVOEafz1TeulgTdcyH3PKszt_iYc4ptej/exec', formObject)
-        .done(function (data) {
-            console.log(data);
-            if (data.result === "error") {
-                $('#alert-wrapper').html(alert_markup('danger', data.message));
-                $('#load-im').attr('src','').css('display', 'none');
-                $('#modal-message').text("Submission failed! Please reach out to parmeseanmac@gmail.com.");
-            } else {
-                $('#alert-wrapper').html('');
-                $('#load-im').attr('src','').css('display', 'none');
-                $('#modal-message').text("Submission successful!");
-            }
-        })
-        .fail(function (data) {
-            console.log(data);
-            $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> There is some issue with the server. '));
-        });
+        if (valid_check && valid_email) {
+            var data = $(this).serialize();
 
+            // Convert form data to an object
+            var formObject = {};
+
+            formObject["num_guests"] = $('#num_guests').val();
+            $(this).serializeArray().forEach(function(item) {
+                if (item.name == "email") {
+                    var rawEmails = item.value;
+                    // Define a regular expression to match various separators (commas, spaces, semicolons, newlines)
+                    const emailArray = rawEmails.split(/[\s,;]+/);
+                    
+                    // Filter out any empty strings in case there were consecutive separators
+                    const cleanedEmails = emailArray.filter(email => email.trim() !== '');
+                    
+                    // Join the emails into a single comma-separated string
+                    const commaSeparatedEmails = cleanedEmails.join(', ');
+
+                    formObject[item.name] = commaSeparatedEmails;
+                }
+                else{
+                    formObject[item.name] = item.value;
+                }
+            });
+
+            // Find unchecked checkboxes and add them to the object with value 'false'
+            $(this).find('input[type="checkbox"]').each(function() {
+                if (!$(this).is(':checked')) {
+                formObject[$(this).attr('name')] = 'false';
+                } else {
+                formObject[$(this).attr('name')] = 'true';
+                }
+            });
+
+            $('#alert-wrapper').html(alert_markup('info', '<strong>Just a sec!</strong> We are saving your details.'));
+            $("#rsvp-fetch").modal('hide');       
+            $('#rsvp-modal').modal('show');
+            $.post('https://script.google.com/macros/s/AKfycbxtkKtSbl1lPB3fPva-r6Hy8NbuBZy2fm6oVOEafz1TeulgTdcyH3PKszt_iYc4ptej/exec', formObject)
+            .done(function (data) {
+                if (data.result === "error") {
+                    $('#alert-wrapper').html(alert_markup('danger', data.message));
+                    $('#load-im').attr('src','').css('display', 'none');
+                    $('#modal-message').text("Submission failed! Please reach out to parmeseanmac@gmail.com.");
+                } else {
+                    $('#alert-wrapper').html('');
+                    $('#load-im').attr('src','').css('display', 'none');
+                    $('#modal-message').text("Submission successful!");
+                }
+            })
+            .fail(function (data) {
+                $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> There is some issue with the server. '));
+            });
+        }
     });
 
 });
@@ -373,7 +409,6 @@ function checkEdit(csv) {
 
     var form = document.getElementById('checkbox-rsvp');
     var data = serializeForm(form);
-    console.log(data);
 
     const params = new URLSearchParams(data);
     var names = [];
@@ -403,7 +438,6 @@ function checkEdit(csv) {
         const cols = row.split('\t');
         if ((ridx == 0)) { return; }
         if (rowIdxs.includes(ridx)){
-            console.log(cols);
             var index = rowIdxs.indexOf(ridx);
             if(cols[1].trim() == cols[4].trim()){
                 submitDict[`guest_name_${idxs[index]}`] = cols[1].trim();
@@ -536,11 +570,11 @@ function createRow(index, name) {
     }
     
     // Checkboxes in the second and third columns
-    const cb_pair = document.createElement("checkbox-pair");
     const checkbox1Cell = document.createElement("td");
     const checkbox1 = document.createElement("input");
     checkbox1.type = "checkbox";
     checkbox1.name = `attending_${index}`;
+    checkbox1.id = `attending_${index}`;
     checkbox1.className = "form-check-input";
     checkbox1Cell.appendChild(checkbox1);
     row.appendChild(checkbox1Cell);
@@ -549,6 +583,7 @@ function createRow(index, name) {
     const checkbox2 = document.createElement("input");
     checkbox2.type = "checkbox";
     checkbox2.name = `declines_${index}`;
+    checkbox2.id = `declines_${index}`;
     checkbox2.className = "form-check-input";
     checkbox2Cell.appendChild(checkbox2);
     row.appendChild(checkbox2Cell);
