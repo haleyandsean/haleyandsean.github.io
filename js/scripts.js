@@ -424,7 +424,7 @@ function checkEdit(csv) {
     rows.forEach((row, ridx) => {
         const cols = row.replace("\r", "").split('\t');
         for (const [index, name] of names.entries()){
-            if ((cols[1].trim() == name.trim()) | (cols[4].trim() == name.trim())){
+            if ((cols[1].trim() == name.trim() && cols[1].trim() != '') | (cols[4].trim() == name.trim())){
                 if(!rowIdxs.includes(ridx)){rowIdxs.push(ridx);}
             }
         }
