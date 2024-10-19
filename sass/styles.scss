@@ -639,12 +639,20 @@ Intro
 .money-img {
   width: 30%;
   margin: 10px;
+  padding-bottom: 20px;
+  text-align: center; 
 }
 
 .money-img img {
     width: 100%;
     max-height: 400px; /* Adjust the height as needed */
     object-fit: contain;
+}
+
+.money-img span {
+    display: block;         /* Display the text beneath the image */
+    font-size: 25px;        /* Customize text size */
+    margin-top: 20px;       /* Add space between image and text */
 }
 
 @media (max-width: 1091px) {
