@@ -658,7 +658,8 @@ Intro
 @media (max-width: 1091px) {
     .money-img {
         width: 90%;
-        max-height: 400px;
+        max-width: 400px;
+        margin: 0 auto;
     }
 }
 
