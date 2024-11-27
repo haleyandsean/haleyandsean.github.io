@@ -1,4 +1,4 @@
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1150px) {
     header {
         width: 90%;
         margin: 0 auto;
@@ -12,7 +12,7 @@
 }
 
 /* Responsive nav kicks in */
-@media screen and (max-width: 1091px) {
+@media screen and (max-width: 1150px) {
     header {
         width: 90%;
         padding-left: 25px;
@@ -240,6 +240,20 @@
     footer .footer-links {
         margin: 120px 0 120px 0;
     }
+}
+
+@media (min-width: 1150px) {
+  .nav-toggle {
+    opacity: 0;
+    visibility: none;
+    transition: none; /* Disable visibility-related transitions */
+  }
+
+  .nav-toggle span,
+  .nav-toggle span:before,
+  .nav-toggle span:after {
+    transition: transform 300ms ease-in-out, background-color 300ms ease-in-out; /* Keep click animations */
+  }
 }
 
 @media screen and (max-width: 640px) {
