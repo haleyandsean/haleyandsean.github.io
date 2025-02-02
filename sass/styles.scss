@@ -803,16 +803,13 @@ Features-stack
 }
 
 /* ==========================================================================
-.events
+.schedule
 ========================================================================== */
-.events {
-  .leftcol {
-    padding-right: 100px;
-    border-right: solid 1px $keyline-color;
-  }
-  .rightcol {
+.schedule {
+  .events{
     padding-left: 100px;
   }
+
 
   .time {
     font-size: 13px;
