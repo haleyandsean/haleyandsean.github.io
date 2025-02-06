@@ -178,7 +178,7 @@ Animations
 }
 
 /* ==========================================================================
-Waypoinsts
+Waypoints
 ========================================================================== */
 .wp1, .wp2, .wp3, .wp4, .wp5, .wp6, .wp7, .wp8, .wp9 {
   visibility: hidden
@@ -1121,6 +1121,22 @@ input[type="checkbox"] {
       margin-top: 15px;
     }
   }
+}
+
+.addev-name-td{
+  text-align: left;
+  vertical-align: middle !important;
+}
+
+.addev-name{
+  border: none;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.cell-welcome{
+  vertical-align: middle !important;
+  padding-top: 0px !important;
 }
 
 /* ==========================================================================
