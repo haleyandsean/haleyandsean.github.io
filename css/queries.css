@@ -91,6 +91,10 @@
         padding-right: 0;
     }
 
+    nav ul.primary-nav li a.after {
+        padding-right: 0 !important;
+    }
+
     nav .member-actions {
         position: static;
         padding: 0;
