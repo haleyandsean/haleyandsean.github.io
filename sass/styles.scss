@@ -398,6 +398,9 @@ header {
       &:last-child a {
         padding-right: 0px;
       }
+      a.after {
+        padding-right: 60px;
+      }
     }
   }
   ul.member-actions {
