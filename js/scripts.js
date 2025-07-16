@@ -188,8 +188,9 @@ $(document).ready(function () {
 
     /********************** Image Lightbox ************/
 
-    var images = $('.gallery-image');
+    var images = []
     var currentIndex = -1;
+    var currentGallery = null;
 
     function changeImage(index) {
         var imgSrc = $(images[index]).attr('src');
@@ -210,7 +211,15 @@ $(document).ready(function () {
     }
 
     $('.gallery-image').click(function() {
+        if ($(this).closest('.gallery-container').length) {
+            currentGallery = $(this).closest('.gallery-container');
+        } else if ($(this).closest('.after-container').length) {
+            currentGallery = $(this).closest('.after-container');
+        }
+
+        images = currentGallery.find('.gallery-image');
         currentIndex = images.index(this);
+        console.log(currentIndex);
         changeImage(currentIndex);
         $('#lightbox').css('display', 'flex').hide().fadeIn();
     });
