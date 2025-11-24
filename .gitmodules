@@ -1,0 +1,3 @@
+[submodule "winerack"]
+	path = winerack
+	url = git@github.com:sgasioro/winerack.git
